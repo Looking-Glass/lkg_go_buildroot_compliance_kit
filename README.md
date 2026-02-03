@@ -24,7 +24,7 @@ The following structure is provided to ensure a fully reproducible build environ
 
 ## 🛠 Reconstruction Instructions
 
-To reproduce the binaries from this package, you will need a Linux host system (Ubuntu 22.04 LTS).
+To reproduce the binaries, download the lkg_go_buildroot_compliance package from releases, you will need a Linux host system (Ubuntu 22.04 LTS). Download the 
 
 ### 1. Run the Automator Script
 The included `reconstruct.sh` script automates the environment setup. It performs the following actions:
@@ -37,7 +37,6 @@ The included `reconstruct.sh` script automates the environment setup. It perform
 chmod +x reconstruct.sh
 ./reconstruct.sh
 ```
-
 ### 2. Start the Build
 Once the script completes, navigate to the generated build directory and execute `make`:
 
@@ -45,6 +44,42 @@ Once the script completes, navigate to the generated build directory and execute
 cd output
 make
 ```
+### 3. Backup SD Card Image
+We strongly recommend that you do not use the SDCard that shipped with your Go. The factory SDCard ships with device specific calibration data unique to each individual device. Whilst we do maintain a backup of this data, it will take a significant amount of time for us rerieve this for you.  
+
+If you wish to backup your SD Card, we recommend the following::
+```
+# Substitue 'X' as required
+# Backup to local image
+sudo dd bs=4M if=/dev/sdX | gzip > backup.img.gz
+# Restore image to SDCard
+gunzip --stdout backup.img.gz | sudo dd bs=4M of=/dev/sdX conv=fsync
+```
+### 4. Flash SD Card Image
+Once the build completes, you will find 'sdcard.img.xz' inside output/images. You will need a SD Card at least 32GB in size. This sdcard image can be written using bmaptool. Substitue 'X' as required.
+```
+sudo umount /dev/sdX*
+sudo bmaptool copy output/images/sdcard.img.xz /dev/sdX
+```
+### 5. Terminal Access
+The compliance image will boot as far as the splash screen. The device will not display 3D images as this is handled by proprietary code that is not shipped within this package. To log into the system connect a USB to serial adapter to the pins marked CPUX-TX/RX. Use 115200kbps 8N1. The default user is 'lkg' and the password is 'nano'
+```
+Welcome to Buildroot
+
+With great power comes great responsibility!
+
+buildroot login: lkg
+Password: 
+```
+### 6. Test (kmscube)
+The kmscube sample is included in the firmware, you need to execute this as the root user.
+```
+$ su -
+Password: 
+# kmscube
+Using display 0xaaaac17c7e60 with EGL version 1.4
+```
+
 
 ---
 
