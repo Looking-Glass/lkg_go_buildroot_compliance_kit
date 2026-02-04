@@ -2,9 +2,14 @@
 
 # 📦 Compliance Source Package
 
-This repository/archive contains the **Corresponding Source (CCS)** and the "scripts used to control compilation and installation" for the buildroot portion of the firmware used in this product. 
+This repository/archive contains the **Corresponding Source (CCS)** and the "scripts used to control compilation and installation" for the buildroot portion of the firmware used in the Looking Glass Go. 
 
 This distribution is provided to satisfy the requirements of open-source licenses, specifically the **GNU General Public License (GPL)** and the **GNU Lesser General Public License (LGPL)**.
+
+## ⚠️ Disclaimer
+
+**This process is intended for advanced users.**
+Modifying the firmware may result in a non-functional device. Looking Glass Factory provides these files to meet license obligations, but cannot offer technical support for custom firmware. Proceed at your own risk.
 
 ## 📂 Package Contents
 
