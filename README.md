@@ -62,7 +62,8 @@ sudo umount /dev/sdX*
 sudo bmaptool copy output/images/sdcard.img.xz /dev/sdX
 ```
 ### 5. Terminal Access
-The compliance image will boot as far as the splash screen. The device will not display 3D images as this is handled by proprietary code that is not shipped within this package. To log into the system connect a USB to serial adapter to the pins marked CPUX-TX/RX. Use 115200kbps 8N1. The default user is 'lkg' and the password is 'nano'
+The compliance image will boot as far as the splash screen. The device will not display 3D images as this is handled by proprietary code that is not shipped within this package. To log into the system, connect a USB to serial adapter to the pins marked CPUX-TX/RX. Use 115200kbps 8N1. The default user is 'lkg' and the password is 'nano'
+![Go Terminal UART Connections](images/go_terminal_uart_connections.jpg)
 ```
 Welcome to Buildroot
 
