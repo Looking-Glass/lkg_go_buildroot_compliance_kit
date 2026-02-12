@@ -29,14 +29,14 @@ The following structure is provided to ensure a fully reproducible build environ
 
 ## 🛠 Reconstruction Instructions
 
-To reproduce the binaries, download the lkg_go_buildroot_compliance package from releases, you will need a Linux host system (Ubuntu 22.04 LTS). Download the 
+To reproduce the binaries, download the lkg_go_buildroot_compliance package from releases, you will need a Linux host system (Ubuntu 22.04 LTS).
 
 ### 1. Run the Automator Script
 The included `reconstruct.sh` script automates the environment setup. It performs the following actions:
 1.  **Dependency Check**: Verifies required host tools (gcc, make, rsync, git, etc.).
 2.  **Environment Setup**: Clones the exact version of **Buildroot** used for this release via a specific Git Hash.
 3.  **Offline Lockdown**: Configures Buildroot for **Strict Offline Mode**.
-4.  **Path Linking**: Automatically maps `BR2_EXTERNAL`, ` and `BR2_DL_DIR` to the local bundled directories.
+4.  **Path Linking**: Automatically maps `BR2_EXTERNAL`, and `BR2_DL_DIR` to the local bundled directories.
 
 ```bash
 chmod +x reconstruct.sh
@@ -50,24 +50,24 @@ cd output
 make
 ```
 ### 3. Backup SD Card Image
-We strongly recommend that you do not use the SDCard that shipped with your Go. The factory SDCard ships with device specific calibration data unique to each individual device. Whilst we do maintain a backup of this data, it will take a significant amount of time for us rerieve this for you.  
+We strongly recommend that you do not use the SD card that shipped with your Go. The factory SD card ships with device specific calibration data unique to each individual device. Whilst we do maintain a backup of this data, it will take a significant amount of time for us retrieve this for you.  
 
-If you wish to backup your SD Card, we recommend the following::
+If you wish to backup your SD card, we recommend the following::
 ```
-# Substitue 'X' as required
+# Substitute 'X' as required
 # Backup to local image
 sudo dd bs=4M if=/dev/sdX | gzip > backup.img.gz
-# Restore image to SDCard
+# Restore image to SD card
 gunzip --stdout backup.img.gz | sudo dd bs=4M of=/dev/sdX conv=fsync
 ```
 ### 4. Flash SD Card Image
-Once the build completes, you will find 'sdcard.img.xz' inside output/images. You will need a SD Card at least 32GB in size. This sdcard image can be written using bmaptool. Substitue 'X' as required.
+Once the build completes, you will find `sdcard.img.xz` inside `output/images`. You will need a SD card at least 32GB in size. This SD card image can be written using bmaptool. Substitute 'X' as required.
 ```
 sudo umount /dev/sdX*
 sudo bmaptool copy output/images/sdcard.img.xz /dev/sdX
 ```
 ### 5. Terminal Access
-The compliance image will boot as far as the splash screen. The device will not display 3D images as this is handled by proprietary code that is not shipped within this package. To log into the system, connect a USB to serial adapter to the pins marked CPUX-TX/RX. Use 115200kbps 8N1. The default user is 'lkg' and the password is 'nano'
+The compliance image will boot as far as the splash screen. The device will not display 3D images as this is handled by proprietary code that is not shipped within this package. To log into the system, connect a USB serial adapter to the pins marked CPUX-TX/RX. Use 115200kbps 8N1. The default user is 'lkg' and the password is 'nano'.
 ![Go Terminal UART Connections](images/go_terminal_uart_connections.jpg)
 ```
 Welcome to Buildroot
